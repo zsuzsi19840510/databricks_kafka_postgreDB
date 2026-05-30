@@ -4,45 +4,50 @@
 
 Ez a projekt egy end-to-end adatfeldolgozási pipeline bemutatása PostgreSQL, Apache Kafka és Databricks használatával.
 
-A rendszer célja a PostgreSQL adatbázisban tárolt rendelési adatok továbbítása Kafka segítségével, majd azok feldolgozása és elemzése Databricks környezetben Spark SQL használatával.
-
-A projekt jól szemlélteti egy modern Data Engineering architektúra alapvető elemeit:
-
-* adatforrás kezelése PostgreSQL-ben
-* eseményalapú adatfolyam Kafka segítségével
-* adatok beolvasása Databricks környezetbe
-* Bronze réteg kialakítása
-* aggregációk és riportkészítés Spark SQL használatával
 
 ---
+## 🏗️ Rendszerarchitektúra
 
-## 🏗️ Architektúra
+### Folyamat összefoglalása
 
-```text
-PostgreSQL
-     │
-     ▼
-Apache Kafka
-     │
-     ▼
-Databricks
-     │
-     ▼
-Bronze Layer
-     │
-     ▼
-Aggregációk / Riportok
-```
+![Folyamat összefoglalása](images/folyamat_abra.png)
 
----
+### End-to-End adatfolyam
 
-## 🛠️ Használt technológiák
+![End-to-End Pipeline](images/reszletes_abra.png)
 
-* PostgreSQL
-* Apache Kafka
-* Databricks
-* Apache Spark SQL
-* Delta Lake
+A rendszer működése:
+
+1. **PostgreSQL**
+
+   * Rendelési adatok tárolása
+   * Orders tábla kezelése
+
+2. **Python Producer**
+
+   * Kapcsolódás PostgreSQL adatbázishoz JDBC segítségével
+   * Új rendelések generálása
+   * JSON üzenetek előállítása
+   * Üzenetek küldése Kafka topicba
+
+3. **Confluent Cloud (Apache Kafka)**
+
+   * `orders` topic használata
+   * Üzenetek fogadása és tárolása
+   * SASL_SSL hitelesítés
+
+4. **Databricks**
+
+   * Kafka stream olvasása Structured Streaming segítségével
+   * JSON adatok feldolgozása és strukturálása
+   * Delta Lake Bronze tábla írása
+   * Checkpoint kezelés Unity Catalog Volume használatával
+
+5. **Analitika**
+
+   * SQL lekérdezések
+   * Aggregációk
+
 
 ---
 
