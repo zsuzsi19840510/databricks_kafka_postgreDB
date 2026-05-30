@@ -61,22 +61,16 @@ Példa mezők:
 
 ---
 
-## 📊 Napi aggregáció
-
-A rendelések napi összesítéséhez a Spark SQL `date_trunc()` függvénye használható.
+## 📊 Aggregáció
 
 ```sql
 SELECT
-    status,
-    date_trunc('day', kafka_timestamp) AS day,
-    COUNT(*) AS order_count,
-    ROUND(SUM(amount), 2) AS total_amount
+  status,
+  COUNT(*) AS order_count,
+  ROUND(SUM(amount), 2) AS total_amount
 FROM kafka_demo.kafka_demo_schema.bronze_orders
-GROUP BY
-    status,
-    date_trunc('day', kafka_timestamp)
-ORDER BY
-    status;
+GROUP BY status
+ORDER BY status;
 ```
 
 ### Eredmény
@@ -85,31 +79,6 @@ A lekérdezés meghatározza:
 
 * a rendelések számát státuszonként
 * a rendelések összértékét
-* napi bontású üzleti riportokat
-
----
-
-## ⚠️ Fontos Spark SQL megjegyzés
-
-A következő kifejezés hibás eredményt adhat:
-
-```sql
-trunc(kafka_timestamp, 'day')
-```
-
-A `trunc()` függvény nem támogatja a `day` paramétert, ezért NULL érték keletkezhet.
-
-Helyette használjuk:
-
-```sql
-date_trunc('day', kafka_timestamp)
-```
-
-vagy
-
-```sql
-to_date(kafka_timestamp)
-```
 
 ---
 
