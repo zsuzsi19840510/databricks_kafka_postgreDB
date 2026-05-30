@@ -106,7 +106,6 @@ A projekt gyakorlati példát mutat:
 * Kafka alapú adatfeldolgozásra
 * Spark SQL aggregációkra
 * Databricks használatára
-* modern Data Engineering architektúrákra
 * PostgreSQL és Kafka integrációra
 
 ---
