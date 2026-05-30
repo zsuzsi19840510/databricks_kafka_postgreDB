@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-orders
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: shop
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  producer:
+    build: ./producer
+    container_name: orders-producer
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: shop
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      CONFLUENT_BOOTSTRAP_SERVERS: ${CONFLUENT_BOOTSTRAP_SERVERS}
+      CONFLUENT_API_KEY: ${CONFLUENT_API_KEY}
+      CONFLUENT_API_SECRET: ${CONFLUENT_API_SECRET}
+      KAFKA_TOPIC: ${KAFKA_TOPIC}
+
+volumes:
+  postgres_data:
