@@ -14,6 +14,8 @@ Név: `databricks-demo`
 
 ![Environment](images/image_1.png)
 
+![Cluster](images/image_2.png)
+
 ---
 
 ## 2. Kafka Cluster létrehozása
@@ -25,7 +27,7 @@ Név: `databricks-demo`
 
 Ajánlott régió: `AWS eu-central-1 (Frankfurt)`
 
-![Cluster](images/image_2.png)
+![Topic](images/image_3.png)
 
 ---
 
@@ -37,8 +39,10 @@ Név: `orders`
 
 Partíció: `1`
 
-![Topic](images/image_3.png)
+
 ![Topic details](images/image_4.png)
+![API key](images/image_5.png)
+![API key list](images/image_6.png)
 
 ---
 
@@ -56,10 +60,11 @@ Kapott adatok:
 
 > A secretet azonnal mentsd el!
 
-![API key](images/image_5.png)
-![API key list](images/image_6.png)
+
 ![API key create](images/image_7.png)
 ![API key created](images/image_8.png)
+![ENV](images/image_9.png)
+![Docker](images/image_10.png)
 
 ---
 
@@ -80,7 +85,8 @@ CONFLUENT_API_SECRET=...
 KAFKA_TOPIC=orders
 ```
 
-![ENV](images/image_9.png)
+![Confluent](images/image_11.png)
+![Messages](images/image_12.png)
 
 ---
 
@@ -89,6 +95,7 @@ KAFKA_TOPIC=orders
 ```bash
 docker compose up --build
 ```
+![Messages](images/image_13.png)
 
 Leállítás:
 
@@ -102,7 +109,11 @@ Törlés volume-okkal:
 docker compose down -v
 ```
 
-![Docker](images/image_10.png)
+![Messages](images/image_14.png)
+
+Ha ilyet látunk akkor működik:
+
+![Messages](images/image_15.png)
 
 ---
 
@@ -110,5 +121,7 @@ docker compose down -v
 
 **Topics → orders → Messages**
 
-![Confluent](images/image_11.png)
-![Messages](images/image_12.png)
+![Messages](images/image_16.png)
+![Messages](images/image_17.png)
+![Messages](images/image_18.png)
+
