@@ -119,7 +119,7 @@ Ez nem örökké futó stream, hanem: beolvassa az aktuálisan elérhető Kafka 
 
 Megj.: Free Edition nem támogatja a folyamatos streaming triggert, ezért használom a Delta írásnál a availableNow=True triggert.
 
-Ha új Kafka üzenetek jönnek, ezt a cellát újra kell futtatni:
+Fontos: Ha új Kafka üzenetek jönnek, ezt a cellát újra kell futtatni:
 
 ```python
 
