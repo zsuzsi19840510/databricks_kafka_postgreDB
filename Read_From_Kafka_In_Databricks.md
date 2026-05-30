@@ -4,9 +4,6 @@
 
 # Lépések
 
-```python
-
-```
 
 ## 1. Kafka kapcsolat
 
@@ -81,52 +78,45 @@ orders_df = (
 ## 4. Catalog és Schema létrehozása
 
 ```python
-
+%sql
+CREATE CATALOG kafka_demo;
 ```
 
-%sql
 
-CREATE CATALOG kafka_demo;
 
 ```python
-
-```
-
 %sql
-
 CREATE SCHEMA IF NOT EXISTS kafka_demo.kafka_demo_schema;
 
-```python
-
 ```
 
-%sql
 
+
+```python
+%sql
 CREATE VOLUME IF NOT EXISTS kafka_demo.kafka_demo_schema.streaming_volume;
 
-```python
-
 ```
 
+
+
+```python
 %sql
 
 USE CATALOG kafka_demo;
-
 USE SCHEMA kafka_demo_schema;
-
 SHOW VOLUMES;
 
-```python
-
 ```
+
+
+
+
 
 ## 5. Delta táblába írás
 
 Ez nem örökké futó stream, hanem: beolvassa az aktuálisan elérhető Kafka üzeneteket, Delta táblába írja, majd megáll.
 
-```python
-# MAGIC
-```
 
 Ha új Kafka üzenetek jönnek, ezt a cellát újra kell futtatni:
 
@@ -151,39 +141,27 @@ query.awaitTermination()
 ## 6. Ellenőrzés SQL-ben
 
 ```python
-# MAGIC
-```
-
 %sql
 
 SELECT *
-
 FROM kafka_demo.kafka_demo_schema.bronze_orders
-
 ORDER BY event_time_ts DESC;
-
-```python
-
 ```
+
+
 
 ### Aggregáció:
 
 ```python
-
-```
-
 %sql
 
 SELECT
-
   status,
-
   COUNT(*) AS order_count,
-
   ROUND(SUM(amount), 2) AS total_amount
-
 FROM kafka_demo.kafka_demo_schema.bronze_orders
-
 GROUP BY status
-
 ORDER BY status;
+
+```
+
